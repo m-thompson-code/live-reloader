@@ -1,0 +1,27 @@
+{
+  "name": "live-reloader",
+  "version": "1.0.0",
+  "description": "Simple live reloader for basic html/css/js",
+  "main": "server.js",
+  "scripts": {
+    "start": "opener http://localhost:8080 && npx nodemon --exec npx gulp -e * --ignore app",
+    "serve": "npx http-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mark Thompson",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.17.1",
+    "gulp": "^4.0.2",
+    "http-server": "^0.12.3",
+    "nodemon": "^2.0.7",
+    "opener": "^1.5.2"
+  },
+  "dependencies": {
+    "socket.io": "^3.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https:github.com/m-thompson-code/live-reloader.git"
+  }
+}
