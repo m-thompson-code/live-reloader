@@ -20,8 +20,6 @@ exports.createServer = () => {
         next();
     });
 
-    // app.use(express.static(APP_PATH));
-
     app.get("*", function(req, res) {
         let relativePath = req.originalUrl;
 
@@ -29,15 +27,9 @@ exports.createServer = () => {
             relativePath = '/index.html';
         }
 
-        console.log(relativePath);
-
         const fileIsHTML = relativePath.endsWith('.html');
 
         const appPath = path.join(APP_PATH, relativePath);
-
-        console.log(appPath);
-
-        
 
         fs.readFile(appPath, "utf8", (err, data) => {
             if (err) {
@@ -52,14 +44,13 @@ exports.createServer = () => {
                         return res.sendStatus(500);
                     }
 
-                    console.log(reloadData);
                     let reloadJS = reloadData.trim();
 
                     const injectionComment = `<!-- live reloading logic using socket.io. Server emits events to notify the client app to refresh when changes are detected in /app -->`;
                     const socketScript = `<script src="/socket.io/socket.io.js"></script>`;
 
                     const endBody = '</body>';
-                    const injectedData = data.replace('</body>', `\t${injectionComment}\n\t${socketScript}\n\t<script>\n${reloadJS}</script>\n${endBody}`);
+                    const injectedData = data.replace('</body>', `\n\n\n\n\n\t${injectionComment}\n\t${socketScript}\n\t<script>\n${reloadJS}\n</script>\n${endBody}`);
                     return res.end(injectedData);
                 });
             }
